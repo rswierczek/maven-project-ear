@@ -35,7 +35,7 @@
 
                natomiast klasa providera rasw.learning.rate.impl.YahooFinanceExchangeRateProvider jest odczytywana za pomocą cassloadera z current thread, czyli ModuleClassLoader for Module "deployment.sample-ear.ear.sample-web-1.0-SNAPSHOT.war:main" from Service Module Loader
             -->
-            <!-- <scope>provided</scope> -->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
