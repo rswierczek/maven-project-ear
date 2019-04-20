@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>maven-project-ear</artifactId>
+        <groupId>rasw.learning</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sample-web</artifactId>
+
+    <packaging>war</packaging>
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>rasw.learning</groupId>
+            <artifactId>sample-services</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <!--
+                TODO po usunieciu provided poprawi się błąd z service loaderem
+                jeśli sample-services jest provided to pojawia się błąd:
+                java.util.ServiceConfigurationError: rasw.learning.rate.spi.ExchangeRateProvider: Provider rasw.learning.rate.impl.YahooFinanceExchangeRateProvider not a subtype.
+
+                Wynika to z tego, że rasw.learning.rate.spi.ExchangeRateProvider używa class loadera z eara: ModuleClassLoader for Module "deployment.sample-ear.ear:main" from Service Module Loader
+
+               natomiast klasa providera rasw.learning.rate.impl.YahooFinanceExchangeRateProvider jest odczytywana za pomocą cassloadera z current thread, czyli ModuleClassLoader for Module "deployment.sample-ear.ear.sample-web-1.0-SNAPSHOT.war:main" from Service Module Loader
+            -->
+            <!-- <scope>provided</scope> -->
+        </dependency>
+
+        <dependency>
+            <groupId>rasw.learning</groupId>
+            <artifactId>exchange-rate-impl</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
